@@ -1,0 +1,66 @@
+############################
+# Python bytecode & cache
+############################
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+############################
+# Virtual environments
+############################
+venv/
+.env/
+.venv/
+
+
+############################
+# Build / generated outputs
+############################
+build/
+dist/
+out/
+output/
+cache/
+tmp/
+
+############################
+# Slicer / geometry artifacts
+############################
+*.gcode
+*.gc
+*.amf
+*.3mf
+*.stl
+*.obj
+*.ply
+
+############################
+# Intermediate geometry data
+############################
+layers/
+slices/
+contours/
+polygons/
+debug/
+
+############################
+# Logs & dumps
+############################
+*.log
+*.trace
+*.dump
+
+############################
+# Test & experiment outputs
+############################
+experiments/**/output/
+experiments/**/cache/
+
+############################
+# IDE & OS
+############################
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

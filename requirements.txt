@@ -1,0 +1,10 @@
+trimesh 
+numpy 
+shapely 
+rtree
+scipy
+networkx
+matplotlib
+tqdm
+fast-simplification
+pyclipper
