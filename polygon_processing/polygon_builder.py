@@ -4,6 +4,7 @@ from shapely.ops import unary_union
 
 Point2D = Tuple[float, float]
 
+
 # -------------------------------------------------
 # Utilities
 # -------------------------------------------------
@@ -39,6 +40,17 @@ def iter_polygons(geom):
     return []
 
 
+def explode_polygon(p):
+    """
+    Ensure we never propagate MultiPolygon upstream.
+    """
+    if isinstance(p, Polygon):
+        return [p]
+    if isinstance(p, MultiPolygon):
+        return list(p.geoms)
+    return []
+
+
 # -------------------------------------------------
 # FINAL Cura-Style Polygon Builder
 # -------------------------------------------------
@@ -47,14 +59,14 @@ def build_polygons_from_loops(
     loops: List[List[Point2D]],
     nozzle_width: float
 ) -> Dict:
-   
+
     area_thresh = (0.5 * nozzle_width) ** 2
     merge_eps = 0.02 * nozzle_width
 
     # -------------------------------------------------
-    # 1. Sanitize loops → temporary solids
+    # 1. Sanitize loops → simple polygons ONLY
     # -------------------------------------------------
-    base_polys = []
+    base_polys: List[Polygon] = []
     rejected = []
 
     for loop in loops:
@@ -72,28 +84,30 @@ def build_polygons_from_loops(
             rejected.append(loop)
             continue
 
-        base_polys.append(p)
+        # 🔑 CRITICAL FIX: explode MultiPolygon
+        for poly in explode_polygon(p):
+            if not poly.is_empty and poly.is_valid:
+                base_polys.append(poly)
 
     if not base_polys:
         return {"geometry": None, "polygons": [], "rejected": rejected}
 
     # -------------------------------------------------
-    # 2. EVEN–ODD classification (core Cura logic)
+    # 2. EVEN–ODD classification (Cura logic)
     # -------------------------------------------------
     final_solids = []
 
     for i, outer in enumerate(base_polys):
-        # Count how many loops contain this loop
+
         depth = 0
         for j, other in enumerate(base_polys):
             if i != j and other.contains(outer):
                 depth += 1
 
-        # Odd depth → hole → skip
+        # Odd depth → hole
         if depth % 2 != 0:
             continue
 
-        # Collect holes directly inside
         holes = []
         for j, inner in enumerate(base_polys):
             if i == j:
@@ -127,7 +141,7 @@ def build_polygons_from_loops(
     merged = unary_union(final_solids)
 
     # -------------------------------------------------
-    # 4. Morphological cleanup (very small)
+    # 4. Morphological cleanup (tiny, Cura-style)
     # -------------------------------------------------
     cleaned = merged.buffer(+merge_eps).buffer(-merge_eps)
 

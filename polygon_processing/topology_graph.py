@@ -1,5 +1,6 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import Dict, List, Tuple
+import math
 from tqdm import tqdm
 
 Point2D = Tuple[float, float]
@@ -106,4 +107,3 @@ class TopologyGraph:
                     loops.append(loop)
 
         return loops
-
