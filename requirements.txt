@@ -7,4 +7,3 @@ networkx
 matplotlib
 tqdm
 fast-simplification
-pyclipper
