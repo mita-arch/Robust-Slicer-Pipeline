@@ -1,7 +1,8 @@
 import trimesh
 from typing import List
 from tqdm import tqdm
-from slicer.slicer_layer import SliceLayer, Segment3D, Segment2D
+from collections import defaultdict
+from slicer.slicer_layer import SliceLayer, Segment3D
 from slicer.mesh_io import compute_z_bounds
 from slicer.slicing_planes import generate_slicing_planes
 from slicer.intersection import _intersect_triangle_plane
@@ -22,10 +23,6 @@ def z_to_layer_index(
     idx = int((z - (z_min + first_layer_height)) / layer_height) + 1
     return max(0, min(idx, num_layers - 1))
 
-from collections import defaultdict
-from typing import List
-from tqdm import tqdm
-
 def slice_mesh(
     mesh: trimesh.Trimesh,
     layer_height: float,
@@ -35,7 +32,6 @@ def slice_mesh(
     Slice a mesh into horizontal layers using triangle bucketing
     (fast, Cura-like approach).
     """
-
     # -------------------------
     # Generate slicing planes
     # -------------------------

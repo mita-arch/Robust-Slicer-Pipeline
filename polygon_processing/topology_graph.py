@@ -1,6 +1,5 @@
-from collections import defaultdict, deque
+from collections import defaultdict
 from typing import Dict, List, Tuple
-import math
 from tqdm import tqdm
 
 Point2D = Tuple[float, float]

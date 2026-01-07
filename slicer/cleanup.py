@@ -1,10 +1,8 @@
-import math
-from typing import List, Dict, Tuple
-from slicer.slicer_layer import Segment3D, Segment2D, SliceLayer
+from typing import List
+from slicer.slicer_layer import Segment3D, Segment2D
 
 CLEAN_EPS = 1e-6
 SNAP_TOL = 1e-5
-
 
 # -------------------------------------------------
 # Utility helpers
@@ -18,7 +16,6 @@ def snap_xy(pt, eps=1e-4):
         round(pt[0] / eps) * eps,
         round(pt[1] / eps) * eps
     )
-
 
 # -------------------------------------------------
 # Raw curve cleanup (NO LOOP STITCHING)

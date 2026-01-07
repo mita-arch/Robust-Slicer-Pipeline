@@ -1,3 +1,5 @@
+EPSILON = 1e-6
+
 def generate_slicing_planes(
     z_min: float,
     z_max: float,
@@ -5,27 +7,6 @@ def generate_slicing_planes(
     first_layer_height: float,
     epsilon: float = 1e-6
 ) -> list[float]:
-    """
-    Generate horizontal slicing planes for a 3D mesh.
-
-    Parameters
-    ----------
-    z_min : float
-        Minimum Z of the mesh bounding box.
-    z_max : float
-        Maximum Z of the mesh bounding box.
-    layer_height : float
-        Regular slicing layer height.
-    first_layer_height : float
-        Height of the first layer (elephant foot control).
-    epsilon : float
-        Small offset to avoid coplanar slicing at the top surface.
-
-    Returns
-    -------
-    list[float]
-        List of Z heights where slicing planes should be placed.
-    """
 
     if layer_height <= 0 or first_layer_height <= 0:
         raise ValueError("Layer heights must be positive values.")
@@ -62,10 +43,3 @@ def generate_slicing_planes(
 
     return planes
 
-from typing import List
-import numpy as np
-import trimesh
-
-from slicer.slicer_layer import SliceLayer, Segment3D, Segment2D
-
-EPSILON = 1e-6
