@@ -20,5 +20,5 @@ python -m venv venv
 # Activate it (Windows)
 .\venv\Scripts\activate
 
-Install all requirements - 
+# Install all requirements - 
 pip install -r requirements.txt
