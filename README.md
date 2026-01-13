@@ -22,3 +22,7 @@ python -m venv venv
 
 # Install all requirements - 
 pip install -r requirements.txt
+
+#Run main.py to debug one layer and main_new.py to slice entire model
+python main.py
+python main_new.py
