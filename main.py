@@ -7,7 +7,7 @@ from debug_slicer import debug_single_slice
 # ------------------------
 # Input / output paths
 # -------------------------
-stl_path = "C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\Carburetor.stl"
+stl_path = "C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\support.stl"
 output_root = Path("output")
 model_name = Path(stl_path).stem
 
@@ -41,7 +41,7 @@ debug_single_slice(
     slices=slices,
     output_root=output_root,
     model_name=model_name,
-    slice_id=None,   # middle slice by default
+    slice_id=1,   # middle slice by default
 )
 
 print("\n[DEBUG MODE COMPLETE]")

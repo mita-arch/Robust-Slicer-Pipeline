@@ -29,7 +29,7 @@ from pathplanning.parameters import ConnectorParams
 # =====================================================
 # Input / output paths
 # =====================================================
-stl_path = "C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\cluster.stl"
+stl_path = "C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\support.stl"
 output_root = Path("output")
 model_name = Path(stl_path).stem
 
@@ -58,6 +58,7 @@ infill_params = InfillParams(
     spacing=2.0,
     angle_deg=45.0,
 )
+
 
 connector_params = ConnectorParams(
     retract_cost=5.0,
