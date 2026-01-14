@@ -29,7 +29,7 @@ from pathplanning.parameters import ConnectorParams
 # =====================================================
 # Input / output paths
 # =====================================================
-stl_path = "C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\support.stl"
+stl_path ="C:\\Users\\hp\\Downloads\\Main\\Week 1\\Models\\Cantilever_test.stl"
 output_root = Path("output")
 model_name = Path(stl_path).stem
 
@@ -101,11 +101,19 @@ for layer_idx, layer in enumerate(
         tol=1e-5,
     )
 
+    visualize_segments(
+        layer.geometry_2d,
+        title=f"Layer {layer_idx} Segments",
+        save_path=layer_dir / "segments.png",
+        show=False,
+    )
+
     loops = topo.extract_loops()
 
     visualize_loops(
         loops,
         title="Extracted Loops",
+        save_path=layer_dir / "loops.png",
         show=False,
     )
 
